@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>UselessTools</title>
+  <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #64b5f6; --on-primary: #fff; --surface: #e3f2fd; --on-surface: #0d47a1;
+      --accent: #bbdefb; --bg: #e3f2fd; --text: #0d47a1; --card-bg: #ffffff;
+      --footer-bg: #bbdefb; --menu-bg: #ffffff; --icon: #0d47a1; --elevation: #ffffff;
+      --shadow: 0 1px 3px rgba(0,0,0,0.2); --radius: 16px; --trans: all 0.2s ease-in-out;
+    }
+    body.dark-theme {
+      --primary: #90caf9; --on-primary: #0d47a1; --surface: #1e1e1e; --on-surface: #e3f2fd;
+      --accent: #64b5f6; --bg: #121212; --text: #e3f2fd; --card-bg: #1e1e1e;
+      --footer-bg: #1e1e1e; --menu-bg: #1e1e1e; --icon: #e3f2fd; --elevation: #1e1e1e;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      font-size: 24px;
+      color: var(--icon);
+    }
+    .mdc-top-app-bar {
+      background: var(--elevation);
+      color: var(--text);
+      box-shadow: var(--shadow);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+    }
+    .mdc-top-app-bar__row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      padding: 0 16px;
+    }
+    .topbar-left, .topbar-right {
+      display: flex;
+      align-items: center;
+    }
+    .mdc-top-app-bar__title {
+      font-size: 1.25rem;
+      font-weight: bold;
+      text-align: center;
+      flex-grow: 1;
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding: 20px;
+      max-width: 600px;
+      margin: 80px auto 24px;
+      flex: 1;
+    }
+    .mdc-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      animation: fadeIn 0.5s ease-out forwards;
+      opacity: 0;
+    }
+    @keyframes fadeIn { to { opacity: 1; } }
+    .mdc-button {
+      border-radius: 8px;
+      font: 500 0.9rem Roboto, sans-serif;
+      padding: 10px 20px;
+      margin: 8px 8px 0 0;
+      background: var(--primary);
+      color: var(--on-primary);
+      text-transform: none;
+      transition: var(--trans);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .mdc-button:hover {
+      background: #42a5f5;
+      transform: scale(1.03);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .mdc-button:active {
+      transform: scale(0.98);
+    }
+    .mdc-button--outlined {
+      background: transparent;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+    }
+    footer {
+      text-align: center;
+      padding: 16px;
+      background: var(--footer-bg);
+      color: var(--text);
+      font-size: 0.875rem;
+    }
+    .mdc-menu-surface {
+      position: absolute;
+      top: 64px;
+      left: 16px;
+      background: var(--menu-bg);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      z-index: 12;
+    }
+    .mdc-list-item {
+      font-size: 0.875rem;
+      padding: 10px 16px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .mdc-list-item:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+    .mdc-list-item__graphic {
+      margin-right: 12px;
+    }
+    h2 { margin-bottom: 12px; font-size: 1.25rem; }
+    p, li { margin-bottom: 8px; font-size: 0.875rem; line-height: 1.5; }
+    ul { padding-left: 20px; }
+  </style>
+</head>
+<body>
+  <header class="mdc-top-app-bar">
+    <div class="mdc-top-app-bar__row">
+      <div class="topbar-left">
+        <button class="material-symbols-outlined mdc-icon-button" id="menu-button">menu</button>
+      </div>
+      <span class="mdc-top-app-bar__title" id="title">Useless Tools</span>
+      <div class="topbar-right">
+        <button class="material-symbols-outlined mdc-icon-button" id="theme-toggle">brightness_6</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mdc-menu mdc-menu-surface" id="select-menu">
+    <ul class="mdc-list" role="menu" aria-hidden="true">
+      <li class="mdc-list-item" role="menuitem" data-view="home"><span class="material-symbols-outlined mdc-list-item__graphic">home</span>Home</li>
+      <li class="mdc-list-item" role="menuitem" data-view="features"><span class="material-symbols-outlined mdc-list-item__graphic">star</span>Features</li>
+      <li class="mdc-list-item" role="menuitem" data-view="changelog"><span class="material-symbols-outlined mdc-list-item__graphic">list</span>Changelogs</li>
+      <li class="mdc-list-item" role="menuitem" data-view="about-app"><span class="material-symbols-outlined mdc-list-item__graphic">info</span>About App</li>
+      <li class="mdc-list-item" role="menuitem" data-view="about-dev"><span class="material-symbols-outlined mdc-list-item__graphic">person</span>About Developer</li>
+    </ul>
+  </div>
+
+  <main class="content" id="main-content"></main>
+
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  <script>
+    new mdc.topAppBar.MDCTopAppBar(document.querySelector('.mdc-top-app-bar'));
+    const menu = new mdc.menu.MDCMenu(document.querySelector('#select-menu'));
+    const menuButton = document.getElementById('menu-button');
+    const titleBar = document.getElementById('title');
+    const content = document.getElementById('main-content');
+
+    function setContent(view) {
+      let html = '';
+      switch(view) {
+        case 'about-app':
+          titleBar.textContent = 'About App';
+          html = `<div class="mdc-card"><h2>About Useless Tools</h2><p>Useless Tools is a powerful toolkit for modders and developers. Designed with simplicity and power in mind.</p></div>`;
+          break;
+        case 'about-dev':
+          titleBar.textContent = 'About Developer';
+          html = `<div class="mdc-card"><h2>About Developer</h2><p>Created by <strong>UselessTools</strong>. Dedicated to innovation in the modding community.</p></div>`;
+          break;
+        case 'changelog':
+          titleBar.textContent = 'Changelogs';
+          html = `
+            <div class="mdc-card">
+              <h2>Latest Updates</h2>
+              <ul>
+                <li>v2.0 - Added changelog view and improved menu behavior</li>
+                <li>v1.9 - Theme system and responsive improvements</li>
+                <li>v1.8 - About app/developer section added</li>
+                <li>v1.7 - UI redesign for cleaner layout</li>
+              </ul>
+              <button class="mdc-button mdc-button--outlined"><span class="material-symbols-outlined">download</span>Full Changelog</button>
+            </div>`;
+          break;
+        default:
+          titleBar.textContent = 'Useless Tools';
+          html = `
+            <div class="mdc-card">
+              <h2>Download Useless Tools</h2>
+              <p>Latest version for Android</p>
+              <button class="mdc-button">Download</button>
+            </div>
+            <div class="mdc-card">
+              <h2>About Developer</h2>
+              <p><strong>UselessTools</strong>: Innovative tools. Namaste 🙏</p>
+              <button class="mdc-button mdc-button--outlined"><span class="material-symbols-outlined">info</span>Learn More</button>
+            </div>
+            <div class="mdc-card">
+              <h2>Feedback</h2>
+              <p>Have suggestions or issues? We'd love to hear from you.</p>
+              <button class="mdc-button"><span class="material-symbols-outlined">send</span>Send Feedback</button>
+            </div>`;
+      }
+      content.innerHTML = html;
+    }
+
+    // Init default view
+    setContent('home');
+
+    menuButton.onclick = (e) => {
+      menu.open = !menu.open;
+      e.stopPropagation();
+    };
+
+    document.addEventListener('click', (e) => {
+      if (!menuButton.contains(e.target) && !document.getElementById('select-menu').contains(e.target)) {
+        menu.open = false;
+      }
+    });
+
+    window.addEventListener('scroll', () => {
+      if (menu.open) menu.open = false;
+    });
+
+    document.querySelectorAll('.mdc-list-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const view = item.getAttribute('data-view');
+        setContent(view);
+        menu.open = false;
+      });
+    });
+
+    document.getElementById('theme-toggle').onclick = () => {
+      document.body.classList.toggle('dark-theme');
+      localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+    };
+
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark-theme');
+    }
+  </script>
+</body>
+</html>
